@@ -1,19 +1,39 @@
 import { useNavigation } from "@react-navigation/native";
-import React from "react";
+import React ,{useState}from "react";
 import { StyleSheet, Image, Dimensions } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
 const HEIGHT = 300, WIDTH = 200;
 const screen_width = Dimensions.get('window').width;
-const screen_height = Dimensions.get('window').height;
-
 const BookOverview = (props) => {
+  const [bookimgsrc,usebookimgsrc]=useState(" ")
+  const [bookauthor,usebookauthor]=useState(" ")
+  const [bookdescription,usebookdescription]=useState(" ")
   const nav = useNavigation()
+  function getBook(bookisbn){
+    fetch(`https://openlibrary.org/api/books?bibkeys=ISBN:${bookisbn}&format=json&jscmd=data`)
+    .then(
+      (res)=>{
+        return res.json()
+      })
+      .then(
+        (resjson)=>{
+      usebookauthor(Object.values(resjson)[0].authors[0].name)
+      usebookimgsrc(Object.values(resjson)[0].cover.large)
+      usebookdescription(Object.values(resjson)[0].excerpts[0].text)
+        })
+      .catch(
+        function (err){
+          console.log(err)
+        }
+      )
+    }
+  getBook(props.bookisbn)
   return (
     <TouchableOpacity style={styles.Main_View} onPress={() => {
-      nav.navigate('Book Details', { imgsrc: props.imgsrc, title: props.title })
+      nav.navigate('Book Details', { imgsrc: bookimgsrc, title: props.title,author:bookauthor ,description:bookdescription})
     }}>
-      <Image source={props.imgsrc} style={styles.Coverimg} />
+      <Image source={{uri:bookimgsrc}} style={styles.Coverimg} />
     </TouchableOpacity>
   );
 };

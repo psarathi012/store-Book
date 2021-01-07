@@ -1,23 +1,20 @@
 import React from "react";
 import { Image, StyleSheet, Text, View, Dimensions } from "react-native";
-import Home from '../Screens/Home'
-import BookCovers from '../Screens/Home'
 import LikeButton from '../Components/LikeButton';
-
-const HEIGHT = 250, WIDTH = 150;
 const screen_width = Dimensions.get('window').width;
 const screen_height = Dimensions.get('window').height;
 
-const BookDetails = ({ route, navigation }) => {
+const BookDetails = ({ route}) => {
     const imgsrc = route.params.imgsrc
     const title = route.params.title
+    const author = route.params.author
+    const description = route.params.description
+    console.log(author)
     return (
 
         <View>
-
-
             <View style={styles.top}>
-                <Image source={imgsrc} style={styles.Coverimg} />
+                <Image source={{uri:imgsrc}} style={styles.Coverimg} />
                 <View style={styles.btn}>
                     <LikeButton />
                 </View>
@@ -27,13 +24,9 @@ const BookDetails = ({ route, navigation }) => {
 
                 <View style={styles.textview}>
                     <Text style={styles.header}>{title}</Text>
-                    <Text style={styles.normaltext}>By: Kester Thompson</Text>
+                    <Text style={styles.normaltext}>by:{author}</Text>
                     <Text style={styles.header}>Description</Text>
-                    <Text style={styles.normaltext}>Lorem Ipsum is
-                    simply dummy text of the printing and typese
-                    tting industry. Lorem Ipsum has been the industry's standard
-                    dummy text ever since the 1500s, when an unknown
-                    printer took a galley of type and scrambled it to make a type specimen book.</Text>
+    <Text style={styles.normaltext}>{description}</Text>
                 </View>
             </View>
         </View>

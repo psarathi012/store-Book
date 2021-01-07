@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { StyleSheet, Dimensions, View, ImageBackground, Text, TouchableOpacity } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';

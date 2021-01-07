@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, StyleSheet, Image, Text, ScrollView, Dimensions } from "react-native";
 import BookOverview from "../Components/BookOverview";
 import SearchBar from "../Components/SearchBar";
@@ -6,19 +6,18 @@ import Swiper from 'react-native-swiper';
 import { Entypo, FontAwesome, FontAwesome5 } from '@expo/vector-icons';
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { LinearGradient } from 'expo-linear-gradient';
+import { get } from "react-native/Libraries/Utilities/PixelRatio";
 
 const screen_width = Dimensions.get('window').width;
 
 const path = "../../assets/";
 const BookCovers = {
-  firstBook: { path: require(`${path}above-all-else-cover-hires.jpg`), title: "Above all else" },
-  secondBook: { path: require(`${path}alice-greta-reissue-hires.jpg`), title: "Alice greta reissue" },
-  thirdBook: { path: require(`${path}mocktails-hires.jpg`), title: "Mocktails" },
-  fourthBook: { path: require(`${path}mothers-journey-hires.jpg`), title: "Mothers journey" }
+  firstbook:"9783453435773",
+  secondbook:"9780099458326",
+  thirdbook:"9780609810903",
+  fourthtbook:"9780385516488",
 };
-
-const Home = () => {
-  return (
+const Home = () => {return (
     <View style={styles.mainview}>
 
       <LinearGradient
@@ -135,18 +134,18 @@ const Home = () => {
           </TouchableOpacity>
 
         </View>
-        
         <Text style={{ fontSize: 30, alignSelf: 'center', fontWeight: 'bold', marginBottom: 20, color: '#000', marginTop: 10 }}>Recently Viewed</Text>
-
         <View style={styles.shelf}>
-          <BookOverview imgsrc={BookCovers.firstBook.path} title={BookCovers.firstBook.title} />
-          <BookOverview imgsrc={BookCovers.secondBook.path} title={BookCovers.secondBook.title} />
-          <BookOverview imgsrc={BookCovers.thirdBook.path} title={BookCovers.thirdBook.title} />
-          <BookOverview imgsrc={BookCovers.fourthBook.path} title={BookCovers.fourthBook.title} />
+          <BookOverview  bookisbn={BookCovers.firstbook} />
+          <BookOverview  bookisbn={BookCovers.secondbook} />
+          <BookOverview  bookisbn={BookCovers.thirdbook} />
+          <BookOverview  bookisbn={BookCovers.fourthtbook} />
         </View>
       </ScrollView>
     </View>
+    
   );
+
 };
 
 const styles = StyleSheet.create({
